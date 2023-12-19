@@ -1,20 +1,8 @@
 # Dependencies
 node_modules
 
-# yarn error logs
-yarn-error.log
 
 # Environment varibales
 .env*
 !.env*.example
 
-# Code coverage
-coverage
-
-#logs
-src/middlewares/logs
-#webhook token
-Webhook Token
-#images
-src/public/Images
-public/Images
