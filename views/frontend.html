@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat Input</title>
+    <style>
+        /* Your CSS styles here (same as before) */
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-message user-message">Hello!</div>
+        <div class="chat-message bot-message">Hi there! How can I assist you?</div>
+        <!-- Add more chat messages here -->
+
+        <input type="text" id="userInput" placeholder="Type your message...">
+        <button id="sendMessage">Send</button>
+    </div>
+
+    <script>
+        document.getElementById("sendMessage").addEventListener("click", function () {
+            var userInput = document.getElementById("userInput").value;
+            var userMessage = '<div class="chat-message user-message">' + userInput + '</div>';
+            document.querySelector(".chat-container").insertAdjacentHTML('beforeend', userMessage);
+    
+            // Clear the input field
+            document.getElementById("userInput").value = "";
+    
+            // Make an API request here and handle the response
+            makeApiRequest(userInput);
+        });
+    
+        function makeApiRequest(userInput) {
+            var apiEndpoint = 'http://localhost:4000/chatGPT'; // Replace with your actual API endpoint
+            var requestData = {
+                userInput: userInput
+            };
+
+            fetch(apiEndpoint, {
+                method: 'POST', // Use 'POST' or 'GET' as appropriate
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(requestData)
+            })
+            .then(response => {console.log("Reposnse",resposne);response.json()})
+            .then(data => {
+                var botResponse = '<div class="chat-message bot-message">' + data.response + '</div>';
+                document.querySelector(".chat-container").insertAdjacentHTML('beforeend', botResponse);
+            })
+            .catch(error => {
+                console.error('API request error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
